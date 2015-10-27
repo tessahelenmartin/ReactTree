@@ -1,0 +1,35 @@
+{
+  "name": "tessahm-personalwebsite",
+  "version": "1.0.0",
+  "description": "personalWebsite",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run serve | npm run dev",
+    "serve": "./node_modules/.bin/http-server -p 8080",
+    "dev": "webpack-dev-server --progress --colors --port 8090"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tessahm/personalWebsite.git"
+  },
+  "author": "Tessa Martin <tessahelenmartin@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tessahm/personalWebsite/issues"
+  },
+  "homepage": "https://github.com/tessahm/personalWebsite#readme",
+  "devDependencies": {
+    "babel-loader": "^5.3.2",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-router": "1.0.0-rc3",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.1",
+    "jsx-loader": "~0.13.2",
+    "http-server": "~0.8.5"
+  },
+  "dependencies": {
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
+  }
+}
