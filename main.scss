@@ -1,0 +1,18 @@
+@function desiredSpace($totalAllottedSpace, $spaceInput){
+	@return($totalAllottedSpace - (2 * $spaceInput));
+}
+
+body{
+	padding: 0px;
+	margin: 0px;
+}
+
+#NavBar{ 
+	background-color: blue;
+	width: desiredSpace(100%, 10%);
+	position: absolute;
+	left: 10%;
+	top: 2.5%;
+	height: desiredSpace(100%,40%);
+}
+

@@ -1,5 +1,7 @@
 /** @jsx React.DOM */
 'use strict'
+var style = require("!style!css!sass!./main.scss")
+var React = require('react')
 var ReactDOM = require('react-dom')
-var Hello = require('./Hello')
-ReactDOM.render(<Hello />, document.getElementById('content'))
+var treeStructure = require('./jsx/tree_structure')
+var bubbleClass = require('./jsx/bubble_svg')
