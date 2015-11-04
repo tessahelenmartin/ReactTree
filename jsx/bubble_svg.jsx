@@ -12,7 +12,7 @@ var ReactDOM = require('react-dom')
     }
 
 function newCircle(){
-  return <Circle width="600" height="400" />;
+  return <Circle width="100" height="100" />; 
 }
 
 var circle1 = new newCircle;
