@@ -3,9 +3,11 @@
 var React = require('react')
 var ReactDOM = require('react-dom')
 var classNames = require('classnames')
+var bubbleFile = require('./bubble_svg')
 var component = React.Component
 var propTypes = React.PropTypes
 var render = ReactDOM.render
+
 
 var reactTree = React.createClass({
 	getInitialState: function(){
@@ -53,13 +55,15 @@ var TreeNode = React.createClass({
 	},
 	render: function(){
 		var childrenArray = React.Children.toArray(this.state.children);
+		var bubble = new bubbleFile.newCircle;
 		return (
 			<div>
+				{bubble}
 				<p>
 					ID: {this.props.nodeId}, CHILDREN: {this.state.numChildren}
 				</p>
 				<button type="button" onClick={this.addChild}>add</button>
-				<div>{childrenArray}</div>
+				<div className="children">{childrenArray}</div>
 			</div>
 		);
 	}
@@ -84,9 +88,5 @@ ReactDOM.render(
 	React.createElement(TreeNode),
 	document.getElementById('treeTest')
 );
-
-
-
-
 
 
