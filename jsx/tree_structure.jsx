@@ -34,13 +34,14 @@ var TreeNode = React.createClass({
 			idIn = this.props.parent
 		};
 		return {
-			nodeId : idIn
+			nodeId : idIn,
+			commentText: "Comment Text"
 		}
 	},
 	getInitialState: function(){
 		return {
 				numChildren : 0,
-				value : null,
+				value: 'Comment', //input box
 				children: []
 		}
 	},
@@ -48,10 +49,14 @@ var TreeNode = React.createClass({
 		this.setState({numChildren: this.state.numChildren + 1});
 		console.log(this.state.numChildren)
 		var childNodeId = this.props.nodeId + '.' + (this.state.numChildren + 1);
-		var childNode = React.createElement(TreeNode, {nodeId: childNodeId})
+		var childNodeCommentText = this.state.value;
+		var childNode = React.createElement(TreeNode, {nodeId: childNodeId, commentText: childNodeCommentText})
 		console.log(childNode.props.nodeId)
 		this.state.children.push(childNode);
 		console.log(this.props.nodeId)
+	},
+	handleChange: function(event) {
+		this.setState({value: event.target.value});
 	},
 	render: function(){
 		var childrenArray = React.Children.toArray(this.state.children);
@@ -59,10 +64,20 @@ var TreeNode = React.createClass({
 		return (
 			<div>
 				{bubble}
-				<p>
-					ID: {this.props.nodeId}, CHILDREN: {this.state.numChildren}
-				</p>
+				<div>
+					<p>
+						ID: {this.props.nodeId}, CHILDREN: {this.state.numChildren}
+					</p>
+				</div>
+				<div>
+					<p>
+						{this.props.commentText}
+					</p>
+				</div>
+				<div>
+				<input type="text" value={this.state.value} onChange={this.handleChange}/>
 				<button type="button" onClick={this.addChild}>add</button>
+				</div>
 				<div className="children">{childrenArray}</div>
 			</div>
 		);
