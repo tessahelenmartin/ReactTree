@@ -6,23 +6,19 @@ var classNames = require('classnames')
 var userClass = require('./user_class')
 var treeStructure = require('./tree_structure')
 var component = React.Component
-var propTypes = React.PropTypes
 var render = ReactDOM.render
 
 var UserController = React.createClass({
-	propTypes: {
-			UserObj: propTypes.User.isRequired,
-	},
 	getDefaultProps: function(){
 		return{
-			UserObj : React.createElement(User)
+			UserObj : new userClass.PageUser
 		};
 	},
 	setNavBar: function(){
 		if (UserObj.getEditAbility()) {
 			return (
 				<div>
-					<p>{this.props.UserObj.props.username}</p>
+					<p>{this.props.UserObj.props.pageusername}</p>
 				</div>
 			);
 		}
@@ -40,5 +36,6 @@ var UserController = React.createClass({
 		return{
 
 		};
-	},
-});
+	}
+})
+

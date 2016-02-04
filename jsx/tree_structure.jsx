@@ -3,23 +3,23 @@
 var React = require('react')
 var ReactDOM = require('react-dom')
 var classNames = require('classnames')
+var userClass = require('./user_class')
+var userControl = require('./user_control')
 var bubbleFile = require('./bubble_svg')
 var component = React.Component
 var propTypes = React.PropTypes
 var render = ReactDOM.render
 
 
-var reactTree = React.createClass({
-	getInitialState: function(){
+var ReactTree = React.createClass({
+	getDefaultProps: function(){
 		return {
-			data: {
-				id : root
-			}
+			id : 'root'
 		};
 	},
 	render: function(){
 		return (
-			<div className = {this.state.data[id]}></div>
+			<div className = {this.props.id}></div>
 			);
 	}
 })
@@ -30,18 +30,21 @@ var TreeNode = React.createClass({
 	},
 	getDefaultProps: function(){
 		var idIn = '1';
+		var BGBlueValueIn = 100;
 		if (this.parent != undefined) {
-			idIn = this.props.parent
+			idIn = this.props.parent;
+			BGBlueValueIn = this.props.parent;
 		};
 		return {
 			nodeId : idIn,
-			commentText: "Comment Text"
+			commentText: "Comment Text",
+			BGBlueValue: BGBlueValueIn
 		}
 	},
 	getInitialState: function(){
 		return {
 				numChildren : 0,
-				value: 'Comment', //input box
+				value: 'Share your thoughts!', //input box
 				children: []
 		}
 	},
@@ -50,7 +53,10 @@ var TreeNode = React.createClass({
 		console.log(this.state.numChildren)
 		var childNodeId = this.props.nodeId + '.' + (this.state.numChildren + 1);
 		var childNodeCommentText = this.state.value;
-		var childNode = React.createElement(TreeNode, {nodeId: childNodeId, commentText: childNodeCommentText})
+		var childNodeBGBlueValue = this.props.BGBlueValue + 25;
+		if (childNodeBGBlueValue > 255) {childNodeBGBlueValue = 255};
+		console.log(childNodeBGBlueValue)
+		var childNode = React.createElement(TreeNode, {nodeId: childNodeId, commentText: childNodeCommentText, BGBlueValue: childNodeBGBlueValue})
 		console.log(childNode.props.nodeId)
 		this.state.children.push(childNode);
 		console.log(this.props.nodeId)
@@ -61,8 +67,24 @@ var TreeNode = React.createClass({
 	render: function(){
 		var childrenArray = React.Children.toArray(this.state.children);
 		var bubble = new bubbleFile.newCircle;
+		var divStyle = {
+		  backgroundColor: 'rgba(0,100,'+this.props.BGBlueValue+',.1)',
+		  borderRadius: '5vh',
+		  marginBottom: '2%',
+		};
+		var inputStyle = {
+			borderRadius: '1vh',
+			borderColor: 'rgba(247,191,191,1)',
+			borderStyle: 'solid',
+			boxShadow: 'none',
+			borderWidth: '1vh',
+			height: '5vh',
+			fontFamily: 'Arial, Helvetica, sans-serif',
+			color: 'rgba(222,171,171,1)',
+			backgroundColor: 'rgba(252,229,229,1)',
+		};
 		return (
-			<div>
+			<div style={divStyle}>
 				{bubble}
 				<div>
 					<p>
@@ -75,8 +97,8 @@ var TreeNode = React.createClass({
 					</p>
 				</div>
 				<div>
-				<input type="text" value={this.state.value} onChange={this.handleChange}/>
-				<button type="button" onClick={this.addChild}>add</button>
+				<input type="text" value={this.state.value} style={inputStyle} onChange={this.handleChange}/>
+				<button type="button" onClick={this.addChild}>Comment</button>
 				</div>
 				<div className="children">{childrenArray}</div>
 			</div>
@@ -85,19 +107,6 @@ var TreeNode = React.createClass({
 });
 
 var TreeNodeFactory = React.createFactory(TreeNode);
-
-var SetIntervalMixin = {
-  componentWillMount: function() {
-    this.intervals = [];
-  },
-  setInterval: function() {
-    this.intervals.push(setInterval.apply(null, arguments));
-  },
-  componentWillUnmount: function() {
-    this.intervals.forEach(clearInterval);
-  }
-};
-
 
 ReactDOM.render(
 	React.createElement(TreeNode),
