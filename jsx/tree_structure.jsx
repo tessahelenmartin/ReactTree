@@ -3,8 +3,6 @@
 var React = require('react')
 var ReactDOM = require('react-dom')
 var classNames = require('classnames')
-var userClass = require('./user_class')
-var userControl = require('./user_control')
 var bubbleFile = require('./bubble_svg')
 var component = React.Component
 var propTypes = React.PropTypes
@@ -37,7 +35,7 @@ var TreeNode = React.createClass({
 		};
 		return {
 			nodeId : idIn,
-			commentText: "Comment Text",
+			commentText: "Let's talk about React.",
 			BGBlueValue: BGBlueValueIn
 		}
 	},
@@ -55,11 +53,8 @@ var TreeNode = React.createClass({
 		var childNodeCommentText = this.state.value;
 		var childNodeBGBlueValue = this.props.BGBlueValue + 25;
 		if (childNodeBGBlueValue > 255) {childNodeBGBlueValue = 255};
-		console.log(childNodeBGBlueValue)
 		var childNode = React.createElement(TreeNode, {nodeId: childNodeId, commentText: childNodeCommentText, BGBlueValue: childNodeBGBlueValue})
-		console.log(childNode.props.nodeId)
 		this.state.children.push(childNode);
-		console.log(this.props.nodeId)
 	},
 	handleChange: function(event) {
 		this.setState({value: event.target.value});
@@ -70,28 +65,23 @@ var TreeNode = React.createClass({
 		var divStyle = {
 		  backgroundColor: 'rgba(0,100,'+this.props.BGBlueValue+',.1)',
 		  borderRadius: '5vh',
-		  marginBottom: '2%',
+			marginTop: '2vh',
 		};
 		var inputStyle = {
 			borderRadius: '1vh',
-			borderColor: 'rgba(247,191,191,1)',
 			borderStyle: 'solid',
 			boxShadow: 'none',
-			borderWidth: '1vh',
-			height: '5vh',
-			fontFamily: 'Arial, Helvetica, sans-serif',
-			color: 'rgba(222,171,171,1)',
-			backgroundColor: 'rgba(252,229,229,1)',
+			width: '60vw',
+			height: '2vh',
+			padding: '1vh',
+			marginRight: '2vh',
 		};
 		return (
-			<div style={divStyle}>
-				{bubble}
+			<div className="commentDiv" style={divStyle}>
 				<div>
 					<p>
-						ID: {this.props.nodeId}, CHILDREN: {this.state.numChildren}
+						Comment Number: {this.props.nodeId}, Number of Children: {this.state.numChildren}
 					</p>
-				</div>
-				<div>
 					<p>
 						{this.props.commentText}
 					</p>
